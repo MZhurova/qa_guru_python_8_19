@@ -137,7 +137,8 @@ def test_list_of_users_per_page():
 
     result = requests.get(
         url=url,
-        params={"page": page, "per_page": per_page}
+        params={"page": page, "per_page": per_page},
+        headers={"Content-Type": "application/json", "Connection": "keep-alive"}
     )
 
     assert result.json()["per_page"] == per_page
