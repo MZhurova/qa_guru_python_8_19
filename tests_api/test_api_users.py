@@ -4,10 +4,11 @@ import requests
 from requests import Response
 from utils import load_schema
 
+WEB_URL = "https://reqres.in/api"
 
 def test_get_list_users_successfully():
-    url = "https://reqres.in/api/users?page=2"
-    schema = load_schema("json_schemas/get_list_users.json")
+    url = WEB_URL + "/users?page=2"
+    schema = load_schema("get_list_users.json")
 
     result: Response = requests.get(url)
 
@@ -16,8 +17,8 @@ def test_get_list_users_successfully():
 
 
 def test_get_single_user_successfully():
-    url = "https://reqres.in/api/users/1"
-    schema = load_schema("json_schemas/get_single_user.json")
+    url = WEB_URL + "/users/1"
+    schema = load_schema("get_single_user.json")
 
     result: Response = requests.get(url)
 
@@ -26,7 +27,7 @@ def test_get_single_user_successfully():
 
 
 def test_get_single_user_not_found():
-    url = "https://reqres.in/api/users/13"
+    url = WEB_URL + "/users/13"
 
     result: Response = requests.get(url)
 
@@ -36,8 +37,8 @@ def test_get_single_user_not_found():
 
 
 def test_post_crete_user():
-    url = "https://reqres.in/api/users"
-    schema = load_schema("json_schemas/post_create_user.json")
+    url = WEB_URL + "/users"
+    schema = load_schema("post_create_user.json")
     data_user = {"name": "Mariya Zhurova", "job": "QA Engineer"}
 
     result: Response = requests.post(url, data=data_user)
@@ -47,7 +48,7 @@ def test_post_crete_user():
 
 
 def test_put_update_user():
-    url = "https://reqres.in/api/users/3"
+    url = WEB_URL + "/users/3"
     data_user = {"name": "Mariya Zhurova", "job": "QA Automation Engineer"}
 
     result: Response = requests.put(url, data_user)
@@ -58,7 +59,7 @@ def test_put_update_user():
 
 
 def test_patch_user():
-    url = "https://reqres.in/api/users/2"
+    url = WEB_URL + "/users/2"
     data_user = {"name": "Mariya Zhurova", "job": "QA Automation Engineer"}
 
     result: Response = requests.patch(url, data_user)
@@ -69,7 +70,7 @@ def test_patch_user():
 
 
 def test_delete():
-    url = "https://reqres.in/api/users?page=2"
+    url = WEB_URL + "/users?page=2"
 
     result: Response = requests.delete(url)
 
@@ -79,8 +80,8 @@ def test_delete():
 
 
 def test_post_register_successful():
-    url = "https://reqres.in/api/register"
-    schema = load_schema("json_schemas/register_successful.json")
+    url = WEB_URL + "/register"
+    schema = load_schema("register_successful.json")
     data_user = {"email": "eve.holt@reqres.in", "password": "pistol"}
 
     result: Response = requests.post(url, data_user)
@@ -92,8 +93,8 @@ def test_post_register_successful():
 
 
 def test_post_register_unsuccessful():
-    url = "https://reqres.in/api/register"
-    schema = load_schema("json_schemas/register_unsuccessful.json")
+    url = WEB_URL + "/register"
+    schema = load_schema("register_unsuccessful.json")
     data_user = {"email": "sydney@fife"}
 
     result: Response = requests.post(url, data_user)
@@ -102,8 +103,8 @@ def test_post_register_unsuccessful():
     jsonschema.validate(result.json(), schema)
 
 def test_get_delayed_response():
-    url = "https://reqres.in/api/users?delay=3"
-    schema = load_schema("json_schemas/delayed_response.json")
+    url = WEB_URL + "/users?delay=3"
+    schema = load_schema("delayed_response.json")
 
     result: Response = requests.get(url)
 
@@ -123,7 +124,7 @@ def test_get_single_user_id(id_):
 
 def test_list_of_users_pagination():
     page = 1
-    url = "https://reqres.in/api/users"
+    url = WEB_URL + "/users"
 
     result = requests.get(url, params={"page": page})
 
@@ -133,7 +134,7 @@ def test_list_of_users_pagination():
 def test_list_of_users_per_page():
     page = 4
     per_page = 3
-    url = "https://reqres.in/api/users"
+    url = WEB_URL + "/users"
 
     result = requests.get(
         url=url,
