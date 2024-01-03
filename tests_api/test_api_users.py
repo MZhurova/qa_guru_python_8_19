@@ -6,6 +6,7 @@ from utils import load_schema
 
 WEB_URL = "https://reqres.in/api"
 
+
 def test_get_list_users_successfully():
     url = WEB_URL + "/users?page=2"
     schema = load_schema("get_list_users.json")
@@ -101,6 +102,7 @@ def test_post_register_unsuccessful():
 
     assert result.status_code == 400
     jsonschema.validate(result.json(), schema)
+
 
 def test_get_delayed_response():
     url = WEB_URL + "/users?delay=3"
